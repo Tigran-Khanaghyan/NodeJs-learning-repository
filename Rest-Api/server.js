@@ -1,11 +1,11 @@
 const http = require("http");
-
-const persons = require("./data/persons");
+const {getPersons, createPerson} = require('./controllers/personController')
 
 const server = http.createServer((req, res) => {
   if (req.url === "/api/persons" && req.method === 'GET') {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(persons));
+    getPersons(req, res)
+  }else if(req.url === '/api/persons' && req.method === 'POST') {
+    createPerson(req, res)
   }
   else {
     res.writeHead(200, { "Content-Type": "application/json" });
