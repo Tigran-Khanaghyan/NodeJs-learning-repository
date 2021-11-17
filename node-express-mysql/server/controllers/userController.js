@@ -47,7 +47,6 @@ exports.find = (req, res) => {
         } else {
           console.log(err);
         }
-        console.log(rows);
       }
     );
   });
@@ -80,3 +79,7 @@ exports.create = (req, res) => {
     );
   });
 };
+
+exports.edit = (req, res) => {
+  res.render("edit-user");
+}
