@@ -23,7 +23,6 @@ exports.view = (req, res) => {
         } else {
           console.log(err);
         }
-        console.log(rows);
       }
     );
   });
@@ -82,4 +81,22 @@ exports.create = (req, res) => {
 
 exports.edit = (req, res) => {
   res.render("edit-user");
+
+  pool.getConnection((err, connection) => {
+    if (err) throw err;
+    console.log(connection.threadId);
+
+    connection.query(
+      "SELECT * FROM usersDb.`user-info` WHERE id = ?", [req.params.id],
+      (err, rows) => {
+        connection.release();
+
+        if (!err) {
+          res.render("edit-user", { rows });  
+        } else {
+          console.log(err);
+        }
+      }
+    );
+  });
 }
